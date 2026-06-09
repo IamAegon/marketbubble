@@ -2,7 +2,7 @@
 
 **A live trading‑streamer command center** — one cockpit that pulls every channel's live chat, the markets, your portfolio, show prep, analytics, and an AI co‑pilot into a single surface. Think *TweetDeck‑for‑livestreams* fused with a trading desk: a producer or moderator can run a live trading broadcast without juggling ten tabs.
 
-Built for the **Market Bubble Vibe Code Challenge**. 🎥 [Demo video](https://www.youtube.com/watch?v=S0zwGkIgriE)
+Built for the **Market Bubble Vibe Code Challenge**. 🎥 [Demo video](https://youtu.be/hLcGXGdQqas)
 
 ```
  Twitch IRC ┐
@@ -27,7 +27,7 @@ Everything flows through **one pipeline**: a message arrives from any source →
 - **Moderation** — connect your **Twitch / Kick** account (OAuth, tokens stay server‑side) and post + moderate as yourself: timeout / ban / unban / delete / chat‑modes / clear, via an inline per‑message mod menu and a per‑channel control bar, with an **undo window** and a persisted **audit log**.
 - **Analytics** — *Pulse* (live hype score, acceleration + spike markers, per‑stream sentiment, new‑vs‑returning chatters, most‑reacted messages, rising emotes/cashtags), *Reactions*, mod‑controlled **session recording**, per‑session **reports** (KPIs + charts + PDF), and session **comparison**.
 - **Trends** — "what the internet is talking about" across free social/news sources (Bluesky, Mastodon, Reddit, Google Trends/News); TikTok/Instagram optionally via an Apify actor.
-- **AI assistant** — a streaming co‑pilot that is **local‑first** (Ollama) or hosted (Anthropic / OpenAI / Venice), *grounded* by tools that read live server state: market mood, trends, stream stats, chat search, who's live, and portfolios.
+- **AI assistant** — a streaming co‑pilot, *grounded* by tools that read live server state: market mood, trends, stream stats, chat search, who's live, and portfolios. Bring your own provider — a **Venice**, **ChatGPT (OpenAI)**, or **Claude (Anthropic)** API key — or run it locally on an **Ollama** model.
 - **Portfolio** — holdings tracking + a performance report.
 - **Studio** — show planning + a run‑of‑show checklist.
 - **Live transcription** — a Python worker turns stream HLS audio into searchable speech‑to‑text captions.
@@ -68,7 +68,7 @@ A **pnpm monorepo**:
 - **Node.js** ≥ 20
 - **pnpm** 9 (`corepack enable` pins the version from `package.json`)
 - *(optional)* **Chrome/Chromium** — only needed to read Kick chat (auto‑detected; override with `KICK_CHROME_BIN`)
-- *(optional)* **Ollama** — for the local AI assistant (`ollama serve`, then e.g. `ollama pull qwen2.5:7b`)
+- *(optional)* **Ollama** — only if you want to run the AI assistant locally instead of with a hosted API key (`ollama serve`, then e.g. `ollama pull qwen2.5:7b`)
 - *(optional)* **Python 3** — only for the live‑transcription worker
 
 ### Install & configure
@@ -82,13 +82,13 @@ pnpm install
 cp .env.example packages/server/.env
 ```
 
-Everything runs **without any keys** — Twitch chat, X broadcast video, markets, trends, and the local AI assistant all work out of the box. Add to `packages/server/.env` only what you want to unlock:
+Twitch chat, X broadcast video, markets, and trends all work **without any keys**. Add to `packages/server/.env` only what you want to unlock:
 
 | Variable | Unlocks |
 |---|---|
 | `X_AUTH_TOKEN` | Reading **X broadcast chat messages** (a logged‑in `auth_token` cookie — a **burner account is recommended**). |
-| `OLLAMA_MODEL` | Pick the local assistant model (e.g. `qwen2.5:7b`; `llama3.2` is small and weak at tool‑calling). |
-| `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `VENICE_API_KEY` | A hosted assistant provider instead of local Ollama. |
+| `VENICE_API_KEY` / `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` | The **AI assistant** provider — Venice, ChatGPT, or Claude. |
+| `OLLAMA_MODEL` | Or run the assistant locally on an Ollama model (e.g. `qwen2.5:7b`). |
 | `DATABASE_URL` | A managed Postgres instead of the embedded PGlite. |
 | `TRENDS_APIFY_TOKEN` (+ actor slugs) | TikTok / Instagram trends lanes. |
 
