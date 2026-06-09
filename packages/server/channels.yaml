@@ -1,0 +1,15 @@
+# Watchlist for the unified chat aggregator. Hot-editable (restart to apply).
+
+twitch:
+  - fazebanks
+
+kick:
+  - ansem
+
+x:
+  # Direct broadcast-URL/ID mode (anonymous, robust). Must be a CURRENTLY-LIVE
+  # broadcast — an ended one has no chatToken and the connector will retry.
+  broadcasts:
+    - broadcast: "https://x.com/i/broadcasts/1jxXggyQWrjJZ"
+      label: "Ansem Twitter"
+  handles: []

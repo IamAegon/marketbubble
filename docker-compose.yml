@@ -1,0 +1,23 @@
+# Optional durable history for cross-chat search.
+# Without this, the app runs fine and search works over the in-memory session buffer.
+# To enable persistent history:  docker compose up -d  +  set DATABASE_URL in .env
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: marketbubble
+    ports:
+      - "5432:5432"
+    volumes:
+      - mb_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  mb_pgdata:

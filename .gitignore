@@ -1,0 +1,41 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+dist/
+build/
+*.tsbuildinfo
+
+# env & secrets
+.env
+.env.local
+.env.*.local
+
+# runtime state
+packages/server/data/
+.chrome-profile/
+
+# logs
+*.log
+
+# python (transcriber worker)
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# editor / OS / tooling
+.DS_Store
+.vscode/
+.idea/
+.claude/
+
+# local scratch
+features.txt
+
+# screenshots (local only)
+ss/
+
+# personal watchlist (local only)
+accounts.txt
